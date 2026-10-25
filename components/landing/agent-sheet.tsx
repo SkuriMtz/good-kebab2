@@ -3,7 +3,7 @@
 import { AgentBlob } from "@/components/brand/agent-blob";
 import { buttonClasses } from "@/components/ui/button";
 import { PLANS, type Agent } from "@/lib/agents";
-import { AGENTS_SECTION, AGENT_COPY, PLAN_NAMES, PRICING } from "./content";
+import { AGENTS_SECTION, PLAN_NAMES, PRICING } from "./content";
 
 function joinPlans(names: string[]) {
   if (names.length <= 1) return names[0] ?? "";
@@ -18,7 +18,6 @@ export function AgentSheetContent({
   agent: Agent;
   onSeePlans: (e: React.MouseEvent<HTMLAnchorElement>) => void;
 }) {
-  const copy = AGENT_COPY[agent.id];
   const plans = PLANS.filter((p) => p.agents.includes(agent.id)).map((p) => PLAN_NAMES[p.id]);
   const soonPlans = plans.filter((p) => p !== PLAN_NAMES.free);
   const t = AGENTS_SECTION.sheet;
@@ -39,12 +38,12 @@ export function AgentSheetContent({
         </div>
       </div>
 
-      <p className="t-lead -mt-2 text-ink">{copy.line}</p>
+      <p className="t-lead -mt-2 text-ink">{agent.line}</p>
 
       <section aria-label={t.does}>
         <p className="t-label">{t.does}</p>
         <ul className="mt-4 flex flex-col gap-2.5 light:gap-0">
-          {copy.tasks.map((task) => (
+          {agent.tasks.map((task) => (
             <li key={task} className="t-body text-ink light:border-b light:border-line light:py-3 light:first:pt-0">
               {task}
             </li>
@@ -54,7 +53,7 @@ export function AgentSheetContent({
 
       <section aria-label={t.never}>
         <p className="t-label">{t.never}</p>
-        <p className="t-body mt-3 text-ink">{copy.never}</p>
+        <p className="t-body mt-3 text-ink">{agent.never}</p>
       </section>
 
       <section aria-label={t.plan}>

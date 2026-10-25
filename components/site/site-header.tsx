@@ -66,7 +66,7 @@ export function SiteHeader() {
       className={cn(
         "fixed inset-x-0 top-0 z-50 [view-transition-name:site-header]",
         "border-b border-transparent transition-[background-color,border-color] duration-300 ease-out",
-        scrolled && "bg-canvas/90 light:border-[#e6e6e8] light:bg-[#fafafc]/80 light:backdrop-blur-[20px]",
+        scrolled && "bg-canvas/90 light:border-line-nav light:bg-nav-open/80 light:backdrop-blur-[20px]",
       )}
     >
       <a
@@ -113,7 +113,7 @@ export function SiteHeader() {
         onClose={() => setOpen(false)}
         title="Menú principal"
         side="right"
-        className="max-w-none md:max-w-[440px] light:bg-[#fafafc]"
+        className="max-w-none md:max-w-[440px] light:bg-nav-open"
       >
         <nav aria-label="Menú principal" className="flex flex-col pt-6">
           {NAV.map((item) => (
@@ -122,7 +122,7 @@ export function SiteHeader() {
               item={item}
               onHome={onHome}
               onClick={() => setOpen(false)}
-              className="sheet-item py-4 text-[2.25rem] font-normal leading-none tracking-[-0.04em] text-ink transition-colors duration-200 hover:text-ink-3 light:border-b light:border-[#e6e6e8] light:text-[1.75rem] light:font-semibold light:tracking-[-0.015em]"
+              className="sheet-item py-4 text-[2.25rem] font-normal leading-none tracking-[-0.04em] text-ink transition-colors duration-200 hover:text-ink-3 light:border-b light:border-line-nav light:text-[1.75rem] light:font-semibold light:tracking-[-0.015em]"
             />
           ))}
         </nav>

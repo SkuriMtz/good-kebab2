@@ -46,7 +46,11 @@ export function Hero() {
             <p data-r className="t-label">
               {HERO.label}
             </p>
-            <h1 data-r id="hero-title" className="t-hero mt-6">
+            <h1
+              data-r
+              id="hero-title"
+              className="t-hero mt-6 light:lg:relative light:lg:z-10 light:lg:w-[calc(100%+12vw)] light:lg:max-w-none"
+            >
               {HERO.title}
             </h1>
             <p data-r className="t-lead mt-7 max-w-[34rem] text-ink light:text-ink-3">

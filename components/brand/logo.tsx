@@ -9,8 +9,8 @@ export function LogoMark({ size = 26, className }: { size?: number; className?: 
   return (
     <svg width={size} height={size} viewBox="0 0 32 32" className={cn("shrink-0", className)} aria-hidden="true">
       <path d={MARK} fill="rgb(var(--brand))" />
-      <ellipse cx={12.4} cy={15} rx={1.9} ry={2.3} fill="#fff" />
-      <ellipse cx={19.6} cy={15} rx={1.9} ry={2.3} fill="#fff" />
+      <ellipse cx={12.4} cy={15} rx={1.9} ry={2.3} fill="white" />
+      <ellipse cx={19.6} cy={15} rx={1.9} ry={2.3} fill="white" />
     </svg>
   );
 }

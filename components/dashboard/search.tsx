@@ -10,7 +10,7 @@ import { Icon } from "@/components/ui/icon";
 import { useTablero } from "./context";
 import { IconButton } from "./icon-button";
 import { normalizar } from "./format";
-import { LINEA_AGENTE, textoBloqueado } from "./plan";
+import { textoBloqueado } from "./plan";
 import { hrefAgente, hrefConversacion, hrefGrupo } from "./rutas";
 import { Scrim } from "./scrim";
 import { useDismiss } from "./use-dismiss";
@@ -55,7 +55,7 @@ export function Search() {
     const out: Resultado[] = [];
 
     for (const a of AGENTS) {
-      if (!coincide(a.name, a.area, LINEA_AGENTE[a.id])) continue;
+      if (!coincide(a.name, a.area, a.line)) continue;
       const libre = t.disponibles.includes(a.id);
       out.push({
         id: `agente-${a.id}`,

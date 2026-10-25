@@ -1,7 +1,7 @@
 -- =====================================================================
 -- Atendel · migración 0001
 -- Tablas EXACTAS de lib/db/types.ts (profiles, plan_limits, grupos,
--- conversations, messages, actividad, waitlist, contact_messages).
+-- conversations, messages, uso_mensual, actividad, waitlist, contact_messages).
 --
 -- Se puede correr más de una vez sin romper nada (usa "if not exists",
 -- "drop ... if exists" y "on conflict do nothing").
@@ -10,6 +10,8 @@
 --   * Cada persona ve y cambia SOLO lo suyo (RLS en todas las tablas).
 --   * Nadie puede cambiar su propio `plan` desde la app: solo se cambia a
 --     mano desde Supabase (ver supabase/README.md).
+--   * El uso del mes (uso_mensual) lo suma un trigger; la app solo lo lee. Así
+--     borrar conversaciones no devuelve mensajes al límite.
 --   * waitlist y contact_messages: cualquiera puede escribir, nadie puede leer
 --     desde la app (los correos solo se ven en el panel de Supabase).
 -- =====================================================================
@@ -236,7 +238,7 @@ revoke all on public.conversations from anon, authenticated;
 grant select, insert, update, delete on public.conversations to authenticated;
 
 -- ---------------------------------------------------------------------
--- 5. messages · rol = 'usuario' cuenta para el límite del mes
+-- 5. messages · rol = 'usuario' cuenta para el límite del mes (vía uso_mensual)
 -- ---------------------------------------------------------------------
 create table if not exists public.messages (
   id              uuid primary key default gen_random_uuid(),
@@ -260,10 +262,6 @@ create index if not exists messages_conversation_created_idx
   on public.messages (conversation_id, created_at);
 create index if not exists messages_user_id_idx
   on public.messages (user_id);
--- Para contar rápido los mensajes del mes (rol = 'usuario').
-create index if not exists messages_uso_mensual_idx
-  on public.messages (user_id, created_at)
-  where rol = 'usuario';
 
 alter table public.messages enable row level security;
 
@@ -308,6 +306,66 @@ drop trigger if exists tocar_conversacion on public.messages;
 create trigger tocar_conversacion
   after insert on public.messages
   for each row execute function public.tocar_conversacion();
+
+-- ---------------------------------------------------------------------
+-- 5b. uso_mensual · mensajes que escribió cada persona en cada mes
+--     Un trigger suma 1 por cada mensaje con rol = 'usuario'. Como el
+--     contador vive aparte, borrar una conversación NO baja el uso del mes.
+--     La app solo lee su propia fila; nadie escribe aquí desde el cliente.
+-- ---------------------------------------------------------------------
+create table if not exists public.uso_mensual (
+  user_id  uuid not null references auth.users (id) on delete cascade,
+  mes      date not null check (extract(day from mes) = 1), -- siempre el día 1 del mes (UTC)
+  mensajes integer not null default 0 check (mensajes >= 0),
+  primary key (user_id, mes)
+);
+
+alter table public.uso_mensual enable row level security;
+
+drop policy if exists "uso_mensual: ver lo propio" on public.uso_mensual;
+create policy "uso_mensual: ver lo propio" on public.uso_mensual
+  for select to authenticated
+  using (user_id = (select auth.uid()));
+
+-- Solo lectura: sin policies de insert, update ni delete y sin permisos de tabla.
+revoke all on public.uso_mensual from anon, authenticated;
+grant select on public.uso_mensual to authenticated;
+
+-- Suma 1 al mes del mensaje (mes en UTC). Corre con permisos del dueño de la
+-- función (security definer) porque la persona no puede escribir en uso_mensual.
+create or replace function public.sumar_uso_mensual()
+returns trigger
+language plpgsql
+security definer
+set search_path = ''
+as $$
+begin
+  if new.rol = 'usuario' then
+    insert into public.uso_mensual (user_id, mes, mensajes)
+    values (new.user_id, date_trunc('month', new.created_at at time zone 'utc')::date, 1)
+    on conflict (user_id, mes)
+      do update set mensajes = public.uso_mensual.mensajes + 1;
+  end if;
+  return new;
+end;
+$$;
+
+revoke execute on function public.sumar_uso_mensual() from public, anon, authenticated;
+
+drop trigger if exists sumar_uso_mensual on public.messages;
+create trigger sumar_uso_mensual
+  after insert on public.messages
+  for each row when (new.rol = 'usuario')
+  execute function public.sumar_uso_mensual();
+
+-- Mensajes que ya existían antes de esta migración. Si la fila del mes ya
+-- existe (porque el trigger ya la lleva), no se toca.
+insert into public.uso_mensual (user_id, mes, mensajes)
+select user_id, date_trunc('month', created_at at time zone 'utc')::date, count(*)
+from public.messages
+where rol = 'usuario'
+group by 1, 2
+on conflict (user_id, mes) do nothing;
 
 -- ---------------------------------------------------------------------
 -- 6. actividad · lo que hicieron los agentes (para el panel)

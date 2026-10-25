@@ -50,10 +50,11 @@ export function SidebarContent({
   ];
 
   const sobrePasado = t.limite !== null && t.usados >= t.limite;
+  // Sin fila en plan_limits no se bloquea a nadie (igual que /api/chat) y se dice tal cual.
   const uso =
     t.limite !== null
       ? `Plan ${NOMBRE_PLAN[t.plan]} · ${formatoNumero(t.usados)} de ${formatoNumero(t.limite)} mensajes este mes`
-      : `Plan ${NOMBRE_PLAN[t.plan]} · ${formatoNumero(t.usados)} mensajes este mes`;
+      : `Plan ${NOMBRE_PLAN[t.plan]} · ${formatoNumero(t.usados)} ${t.usados === 1 ? "mensaje" : "mensajes"} este mes · sin límite definido`;
 
   const cuerpo = (
     <>

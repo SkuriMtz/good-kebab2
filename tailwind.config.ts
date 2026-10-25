@@ -17,6 +17,8 @@ const config: Config = {
         "ink-3": v("ink-3"),
         line: v("line"),
         "line-strong": v("line-strong"),
+        "nav-open": v("nav-open"),
+        "line-nav": v("line-nav"),
         field: v("field"),
         "field-line": v("field-line"),
         accent: v("accent"),

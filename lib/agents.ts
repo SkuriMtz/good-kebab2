@@ -4,11 +4,11 @@ export type Agent = {
   id: AgentId;
   name: string;
   area: string;
-  /** Una línea de lo que hace. */
+  /** Una línea de lo que hace (docs/investigacion/textos.md §3). La leen la portada, el panel y el chat. */
   line: string;
   /** Lo que hace, en verbos (para la ficha). */
   tasks: string[];
-  /** Lo que nunca hace sin el visto bueno del dueño. */
+  /** Lo que no hace sin el permiso del dueño, como objeto de "Nunca sin tu permiso:" (termina en punto). */
   never: string;
   /** Color para CSS: respeta el modo claro/oscuro. */
   color: string;
@@ -23,14 +23,15 @@ export const AGENTS: Agent[] = [
     id: "lola",
     name: "Lola",
     area: "Atención",
-    line: "Contesta tu WhatsApp y agenda citas, a cualquier hora.",
+    line: "Contesta tu WhatsApp a cualquier hora.",
     tasks: [
-      "Contesta el WhatsApp a cualquier hora",
       "Responde precios, horarios y formas de pago",
-      "Agenda, confirma, recuerda y reagenda citas",
+      "Agenda y confirma citas",
+      "Recuerda la cita a tu cliente",
+      "Reagenda cuando alguien no puede",
       "Te avisa cuando un caso necesita a una persona",
     ],
-    never: "Nunca confirma un cambio importante sin preguntarte.",
+    never: "Dar un descuento o cambiar un precio.",
     color: "rgb(var(--agent-lola))",
     hex: { dark: "#ffb829", light: "#f2a20c" },
     plan: "one",
@@ -39,14 +40,15 @@ export const AGENTS: Agent[] = [
     id: "clara",
     name: "Clara",
     area: "Correo",
-    line: "Te resume el correo del día y lo ordena por urgencia.",
+    line: "Resume tu correo y marca lo urgente.",
     tasks: [
-      "Lee y resume el correo del día",
+      "Lee el correo del día",
+      "Lo resume",
       "Lo ordena por urgencia",
       "Detecta facturas y su fecha límite",
-      "Te propone respuestas",
+      "Propone respuestas",
     ],
-    never: "Nunca envía una respuesta sin que la apruebes.",
+    never: "Enviar una respuesta.",
     color: "rgb(var(--agent-clara))",
     hex: { dark: "#1fb89a", light: "#15846e" },
     plan: "free",
@@ -55,13 +57,14 @@ export const AGENTS: Agent[] = [
     id: "victor",
     name: "Víctor",
     area: "Clientes",
-    line: "Trae de regreso a tus clientes y pide reseñas.",
+    line: "Trae de regreso a quien dejó de venir.",
     tasks: [
-      "Escribe a quien no viene desde hace tiempo, con un mensaje personal",
+      "Busca a quien no viene desde hace tiempo",
+      "Escribe un mensaje personal",
       "Da seguimiento a quien preguntó y no agendó",
-      "Pide reseñas a quien ya vino",
+      "Pide reseñas",
     ],
-    never: "Nunca le escribe a un cliente sin que veas el mensaje.",
+    never: "Mandar un mensaje a tus clientes.",
     color: "rgb(var(--agent-victor))",
     hex: { dark: "#ff5a8a", light: "#e8396c" },
     plan: "max",
@@ -70,14 +73,14 @@ export const AGENTS: Agent[] = [
     id: "iris",
     name: "Iris",
     area: "Oficina",
-    line: "Redacta, arma reportes y te explica trámites.",
+    line: "Redacta, compara y arma tus reportes.",
     tasks: [
       "Redacta documentos, cartas y resúmenes",
-      "Arma tu reporte del mes",
+      "Arma el reporte del mes",
       "Compara precios y proveedores",
-      "Te explica trámites paso a paso",
+      "Explica trámites con palabras claras",
     ],
-    never: "Nunca manda un documento a nadie sin tu visto bueno.",
+    never: "Enviar un documento.",
     color: "rgb(var(--agent-iris))",
     hex: { dark: "#a98bff", light: "#7d5cf2" },
     plan: "max",

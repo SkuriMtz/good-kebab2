@@ -7,12 +7,10 @@ import { parseCommand } from "./commands";
  * de la persona, y nunca se inventan datos del negocio.
  */
 
-/** "Nunca sin tu permiso" de cada agente (textos.md §3). */
-const NUNCA: Record<AgentId, string> = {
-  lola: "dar un descuento o cambiar un precio",
-  clara: "enviar una respuesta",
-  victor: "mandar un mensaje a los clientes",
-  iris: "enviar un documento",
+/** "Nunca sin tu permiso" de cada agente: sale de lib/agents.ts (textos.md §3), en minúscula y sin el punto final. */
+const nunca = (id: AgentId) => {
+  const t = getAgent(id).never.replace(/\.$/, "");
+  return t.charAt(0).toLowerCase() + t.slice(1);
 };
 
 const ESTILO: Record<AgentId, string> = {
@@ -61,7 +59,7 @@ export function buildSystemPrompt(ctx: PromptContext): string {
     "Reglas que no se rompen:",
     "- Hablas en español de México, de tú, con frases cortas y concretas. Sin jerga, sin adornos y sin emojis.",
     "- Escribes en texto plano: nada de Markdown (sin asteriscos, almohadillas ni tablas). Para listas usa guiones.",
-    `- Lo importante nunca sale sin el visto bueno de la persona. Sobre todo, nunca sin su permiso: ${NUNCA[ctx.agent]}. ` +
+    `- Lo importante nunca sale sin el visto bueno de la persona. Sobre todo, nunca sin su permiso: ${nunca(ctx.agent)}. ` +
       "Desde este chat solo preparas borradores y propuestas: di con claridad que aún no se envió nada y pregunta si lo aprueba.",
     "- Nunca inventes datos del negocio: precios, horarios, clientes, citas, facturas, correos ni cifras. Si un dato no está en esta conversación, dilo y pídelo.",
     "- Cuando un caso necesite a una persona (un descuento, una queja, una decisión de dinero), dilo con claridad y explica qué tiene que decidir ella.",

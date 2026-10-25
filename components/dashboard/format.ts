@@ -19,11 +19,6 @@ export function formatoDia(fecha: Date, ahora: Date = new Date()): string {
   return DIA.format(fecha);
 }
 
-/** Inicio del mes (igual que lo cuenta el chat al aplicar el límite), listo para filtrar en la base. */
-export function inicioDeMes(ahora: Date = new Date()): string {
-  return new Date(Date.UTC(ahora.getUTCFullYear(), ahora.getUTCMonth(), 1)).toISOString();
-}
-
 /** 1 234 → "1,234" (con coma de miles, como se escribe en México) */
 export function formatoNumero(n: number): string {
   return new Intl.NumberFormat("es-MX").format(n);

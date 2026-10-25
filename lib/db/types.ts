@@ -53,7 +53,7 @@ export type ResultCard = {
   pendiente?: boolean;
 };
 
-/** messages — `rol = 'usuario'` cuenta para el límite del mes. */
+/** messages — `rol = 'usuario'` cuenta para el límite del mes (se suma en `uso_mensual`). */
 export type Message = {
   id: string;
   conversation_id: string;
@@ -63,6 +63,17 @@ export type Message = {
   contenido: string;
   tarjeta: ResultCard | null;
   created_at: string;
+};
+
+/**
+ * uso_mensual — mensajes que escribió la persona (rol = 'usuario') en cada mes. Lo suma un trigger de la
+ * base al insertar en `messages`; la app solo lo lee. No baja si se borran conversaciones.
+ */
+export type UsoMensual = {
+  user_id: string;
+  /** Primer día del mes en UTC, "2026-10-01". */
+  mes: string;
+  mensajes: number;
 };
 
 /** actividad — lo que hicieron los agentes, para el panel. */

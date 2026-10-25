@@ -64,10 +64,38 @@ export function SmoothScroll() {
     };
   }, []);
 
-  // Al cambiar de página, arriba y sin animación.
+  // Al cambiar de página: arriba y sin animación, o directo al ancla si la dirección trae una (/#lista, /#precios…).
+  // Sin esto, en computadora el salto a 0 pisaba el salto al ancla que hace el navegador.
   useEffect(() => {
-    lenis?.scrollTo(0, { immediate: true, force: true });
+    let id = window.location.hash.slice(1);
+    try {
+      id = decodeURIComponent(id);
+    } catch {
+      // Ancla mal escrita: se queda como viene.
+    }
+    const ir = () => {
+      const el = id ? document.getElementById(id) : null;
+      if (!el) lenis?.scrollTo(0, { immediate: true, force: true });
+      else if (lenis) lenis.scrollTo(el, { immediate: true, force: true });
+      else el.scrollIntoView({ block: "start" });
+    };
+    ir();
     ScrollTrigger.refresh();
+    if (!id) return;
+
+    // La portada cambia de alto justo después de montar (el hero se fija en computadora): se vuelve a
+    // apuntar al ancla, salvo que la persona ya haya empezado a mover la página.
+    const timers = [150, 450].map((ms) => window.setTimeout(ir, ms));
+    const soltar = () => {
+      timers.forEach(window.clearTimeout);
+      window.removeEventListener("wheel", soltar);
+      window.removeEventListener("touchstart", soltar);
+      window.removeEventListener("keydown", soltar);
+    };
+    window.addEventListener("wheel", soltar, { passive: true });
+    window.addEventListener("touchstart", soltar, { passive: true });
+    window.addEventListener("keydown", soltar);
+    return soltar;
   }, [pathname]);
 
   return null;

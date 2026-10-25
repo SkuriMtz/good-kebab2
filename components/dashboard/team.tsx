@@ -4,7 +4,7 @@ import { cn } from "@/lib/cn";
 import { AgentBlob } from "@/components/brand/agent-blob";
 import { buttonClasses } from "@/components/ui/button";
 import { Icon } from "@/components/ui/icon";
-import { LINEA_AGENTE, textoBloqueado } from "./plan";
+import { textoBloqueado } from "./plan";
 import { hrefAgente, type Rutas } from "./rutas";
 import type { TableroData } from "./types";
 
@@ -35,7 +35,7 @@ export function Team({ data, rutas }: { data: TableroData; rutas: Rutas }) {
                   {a.name}
                 </h3>
                 <p className="mt-3 text-[0.9375rem] font-light leading-snug text-app-fg-2 light:font-normal">
-                  {LINEA_AGENTE[a.id]}
+                  {a.line}
                 </p>
                 <div className="-ml-4 mt-5 sm:mt-auto sm:pt-5 light:ml-0">
                   {libre ? (

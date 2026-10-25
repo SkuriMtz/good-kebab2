@@ -1,6 +1,7 @@
 import type { SupabaseClient } from "@supabase/supabase-js";
 import type { AgentId, PlanId } from "@/lib/agents";
 import type { Conversation, Grupo, Message, ResultCard } from "@/lib/db/types";
+import { consultaUsoDelMes } from "@/lib/db/uso";
 import { oneLine } from "@/lib/chat/format";
 import type { ChatMessage, ChatUser, ConversationMeta, ConversationSummary, GroupSummary } from "@/lib/chat/types";
 
@@ -30,17 +31,10 @@ export async function getPlanLimit(sb: Sb, plan: PlanId): Promise<number | null>
   return typeof data?.mensajes_mes === "number" ? data.mensajes_mes : null;
 }
 
-/** Mensajes de la persona (rol = 'usuario') desde el inicio del mes. */
+/** Mensajes que escribió la persona este mes, de `uso_mensual` (borrar conversaciones no lo baja). */
 export async function countUserMessagesThisMonth(sb: Sb, userId: string): Promise<number> {
-  const now = new Date();
-  const inicio = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), 1)).toISOString();
-  const { count } = await sb
-    .from("messages")
-    .select("id", { count: "exact", head: true })
-    .eq("user_id", userId)
-    .eq("rol", "usuario")
-    .gte("created_at", inicio);
-  return count ?? 0;
+  const { data } = await consultaUsoDelMes(sb, userId);
+  return typeof data?.mensajes === "number" ? data.mensajes : 0;
 }
 
 /* ------------------------------ Conversaciones ------------------------------ */
@@ -157,9 +151,8 @@ export async function insertMessage(
   return !error;
 }
 
-/** Borra una conversación y sus mensajes. */
+/** Borra una conversación; sus mensajes se van con ella (on delete cascade). El uso del mes no cambia. */
 export async function deleteConversation(sb: Sb, id: string): Promise<boolean> {
-  await sb.from("messages").delete().eq("conversation_id", id);
   const { error } = await sb.from("conversations").delete().eq("id", id);
   return !error;
 }

@@ -2,7 +2,7 @@ import type { AgentId, PlanId } from "@/lib/agents";
 
 /**
  * Textos del sitio público. Fuente: docs/investigacion/textos.md (se usan tal cual).
- * Donde lib/agents.ts difiere de textos.md §3, gana textos.md.
+ * Las líneas, fichas y "nunca sin tu permiso" de los agentes viven en lib/agents.ts.
  */
 
 export const HERO = {
@@ -44,51 +44,6 @@ export const AGENTS_SECTION = {
   title: "Tu equipo de agentes",
   subtitle: "Cada uno se encarga de lo suyo. Tú decides qué sale.",
   sheet: { does: "Qué hace", never: "Nunca sin tu permiso", plan: "En qué plan viene", open: "Ver la ficha de" },
-};
-
-export const AGENT_COPY: Record<AgentId, { line: string; tasks: string[]; never: string }> = {
-  lola: {
-    line: "Contesta tu WhatsApp a cualquier hora.",
-    tasks: [
-      "Responde precios, horarios y formas de pago",
-      "Agenda y confirma citas",
-      "Recuerda la cita a tu cliente",
-      "Reagenda cuando alguien no puede",
-      "Te avisa cuando un caso necesita a una persona",
-    ],
-    never: "Dar un descuento o cambiar un precio.",
-  },
-  clara: {
-    line: "Resume tu correo y marca lo urgente.",
-    tasks: [
-      "Lee el correo del día",
-      "Lo resume",
-      "Lo ordena por urgencia",
-      "Detecta facturas y su fecha límite",
-      "Propone respuestas",
-    ],
-    never: "Enviar una respuesta.",
-  },
-  victor: {
-    line: "Trae de regreso a quien dejó de venir.",
-    tasks: [
-      "Busca a quien no viene desde hace tiempo",
-      "Escribe un mensaje personal",
-      "Da seguimiento a quien preguntó y no agendó",
-      "Pide reseñas",
-    ],
-    never: "Mandar un mensaje a tus clientes.",
-  },
-  iris: {
-    line: "Redacta, compara y arma tus reportes.",
-    tasks: [
-      "Redacta documentos, cartas y resúmenes",
-      "Arma el reporte del mes",
-      "Compara precios y proveedores",
-      "Explica trámites con palabras claras",
-    ],
-    never: "Enviar un documento.",
-  },
 };
 
 export const PLAN_NAMES: Record<PlanId, string> = { free: "Free", one: "One", max: "Max" };

@@ -388,22 +388,25 @@ export function ChatThread({ conversationId, conversation, initialMessages }: Pr
     await send(`Aprobado: ${card.titulo}. Puedes continuar.`, { target: { kind: "agente", agent: agente } });
   };
 
-  /* --------------------------- Datos de la dirección (?q=, ?agente=) --------------------------- */
+  /* ------------- Datos de la dirección (?q=, ?agente=, ?grupo=, ?nueva=1) ------------- */
   const onPrefill = useCallback(
     (p: Prefill) => {
-      if (p.agente) {
+      if (p.grupo) {
+        // ?agente=grupo&grupo=<id>: escribirle a ese grupo.
+        const g = groups.find((x) => x.id === p.grupo);
+        if (g && !g.agentes.some((a) => !allowed.includes(a))) setTarget({ kind: "grupo", groupId: g.id });
+        else if (g) setNotice({ tono: "info", texto: "Ese grupo tiene agentes que no vienen en tu plan." });
+      } else if (p.agente === "grupo") {
+        // ?agente=grupo sin id: "Nuevo grupo".
+        if (allowed.length > 1) setGroupSheet(true);
+      } else if (p.agente) {
         const a = AGENTS.find((x) => x.id === norm(p.agente ?? ""));
         if (a && allowed.includes(a.id)) setTarget({ kind: "agente", agent: a.id });
         else if (a) setNotice({ tono: "info", texto: `${a.name} no viene en tu plan. Elige a otro de tu equipo.` });
       }
-      if (p.grupo) {
-        const g = groups.find((x) => x.id === p.grupo);
-        if (g && !g.agentes.some((a) => !allowed.includes(a))) setTarget({ kind: "grupo", groupId: g.id });
-      }
-      if (p.q) {
-        setValue(p.q.slice(0, 2000));
-        requestAnimationFrame(() => textareaRef.current?.focus());
-      }
+      if (p.q) setValue(p.q.slice(0, 2000));
+      // Con texto o en una conversación nueva, la caja queda lista para escribir.
+      if (p.q || p.nueva) requestAnimationFrame(() => textareaRef.current?.focus());
     },
     [allowed, groups],
   );

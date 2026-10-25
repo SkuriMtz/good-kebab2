@@ -7,7 +7,7 @@ import { Icon } from "@/components/ui/icon";
 import { Sheet } from "@/components/ui/sheet";
 import { AGENTS, type Agent, type AgentId } from "@/lib/agents";
 import { cn } from "@/lib/cn";
-import { AGENTS_SECTION, AGENT_COPY } from "./content";
+import { AGENTS_SECTION } from "./content";
 import { AgentSheetContent } from "./agent-sheet";
 import { scrollToId } from "./scroll-to";
 
@@ -45,7 +45,6 @@ export function AgentsSection() {
 
       <ul className="mt-12 lg:mt-20" onPointerLeave={() => setHot(null)}>
         {AGENTS.map((agent, i) => {
-          const copy = AGENT_COPY[agent.id];
           const dim = hot !== null && hot !== agent.id;
           return (
             <li
@@ -93,7 +92,7 @@ export function AgentsSection() {
 
                 <span className="col-span-2 row-start-2 flex flex-col gap-2 lg:col-span-4 lg:col-start-8 lg:row-start-1 lg:gap-3">
                   <span className="t-label">{agent.area}</span>
-                  <span className="t-lead text-ink">{copy.line}</span>
+                  <span className="t-lead text-ink">{agent.line}</span>
                   <span className="sr-only">. {AGENTS_SECTION.sheet.open} {agent.name}</span>
                 </span>
               </button>

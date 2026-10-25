@@ -11,7 +11,7 @@ La migración es `migrations/0001_atendel.sql`. Se puede correr más de una vez 
 1. Entra a tu proyecto en [supabase.com](https://supabase.com) y abre **SQL Editor**.
 2. Pulsa **New query**.
 3. Copia todo el contenido de `migrations/0001_atendel.sql`, pégalo y pulsa **Run**.
-4. Debe decir "Success". Revisa en **Table Editor** que aparezcan: `profiles`, `plan_limits`, `grupos`, `conversations`, `messages`, `actividad`, `waitlist` y `contact_messages`.
+4. Debe decir "Success". Revisa en **Table Editor** que aparezcan: `profiles`, `plan_limits`, `grupos`, `conversations`, `messages`, `uso_mensual`, `actividad`, `waitlist` y `contact_messages`.
 
 **Opción B: con la línea de comandos**
 
@@ -73,13 +73,29 @@ update public.plan_limits set mensajes_mes = 400 where plan = 'one';
 update public.plan_limits set mensajes_mes = 800 where plan = 'max';
 ```
 
-La app cuenta los mensajes que escribe la persona en el mes (`messages` con `rol = 'usuario'`) y los compara con este número.
+La app compara este número con lo que la persona lleva en el mes, que sale de `uso_mensual` (ver el apartado 6). Si un plan no tiene fila en `plan_limits`, no se bloquea a nadie y el panel dice "sin límite definido".
 
-## 6. Ver la lista de espera y los mensajes de contacto
+## 6. Uso del mes (`uso_mensual`)
+
+La tabla `uso_mensual` guarda cuántos mensajes escribió cada persona en cada mes (`user_id`, `mes` = primer día del mes en UTC, `mensajes`). La llena sola un trigger de la base cada vez que se guarda un mensaje con `rol = 'usuario'`; los mensajes de los agentes y los avisos del sistema no cuentan.
+
+- **Borrar conversaciones no baja el conteo**: el contador vive aparte de `messages`.
+- La app **solo lee** su propia fila. Nadie puede escribirla desde el cliente (ni con la clave pública ni con una sesión).
+- Si una persona ya tenía mensajes antes de aplicar la migración, esta los cuenta una vez al correrse.
+- Para dar de nuevo los mensajes a alguien este mes (desde **SQL Editor**):
+
+  ```sql
+  update public.uso_mensual
+     set mensajes = 0
+   where mes = date_trunc('month', now() at time zone 'utc')::date
+     and user_id = (select id from auth.users where email = 'persona@correo.com');
+  ```
+
+## 7. Ver la lista de espera y los mensajes de contacto
 
 Desde la app nadie puede leer estas tablas (solo escribir). Tú las ves en **Table Editor → `waitlist`** y **`contact_messages`**. En la lista de espera cada correo entra una sola vez, sin importar las mayúsculas.
 
-## 7. Qué protege cada tabla
+## 8. Qué protege cada tabla
 
 | Tabla | Quién la ve | Quién escribe |
 |---|---|---|
@@ -87,8 +103,5 @@ Desde la app nadie puede leer estas tablas (solo escribir). Tú las ves en **Tab
 | `plan_limits` | cualquier persona con sesión | nadie desde la app |
 | `grupos`, `conversations`, `actividad` | cada persona, solo lo suyo | la propia persona (en `actividad` solo puede cambiar `estado` y `detalle`) |
 | `messages` | cada persona, solo los suyos | la propia persona, solo en conversaciones suyas; no se editan |
+| `uso_mensual` | cada persona, solo la suya | nadie desde la app (la suma un trigger) |
 | `waitlist`, `contact_messages` | nadie desde la app | cualquiera puede agregar un registro |
-
-## 8. Pendiente que decide el dueño
-
-El uso del mes se calcula contando los mensajes guardados. Si una persona borra una conversación, sus mensajes se borran y el conteo baja. Si eso importa, hay dos caminos: no dejar borrar conversaciones (solo archivarlas) o guardar un contador aparte. No se hizo todavía porque cambiaría las tablas del contrato de datos.

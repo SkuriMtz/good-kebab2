@@ -14,6 +14,12 @@ function resumen(porRevisar: number) {
   return `Tienes ${porRevisar} cosas por revisar.`;
 }
 
+/** En el ejemplo la dueña es Ana; en vivo no se sabe cómo se identifica quien entra, así que la forma es neutra. */
+function saludo({ demo, nombre }: TableroData) {
+  if (demo) return nombre ? `Bienvenida a Atendel, ${nombre}` : "Bienvenida a Atendel";
+  return nombre ? `Te damos la bienvenida a Atendel, ${nombre}` : "Te damos la bienvenida a Atendel";
+}
+
 /** Página de Inicio (la usan /pruebalo y /panel). */
 export function InicioView({ data }: { data: TableroData }) {
   const rutas = rutasDe(data.base);
@@ -23,7 +29,7 @@ export function InicioView({ data }: { data: TableroData }) {
     <PageFrame className="space-y-16 sm:space-y-20 lg:space-y-24">
       <div>
         {data.demo && <DemoNotice rutas={rutas} />}
-        <h1 className="t-title">{data.nombre ? `Bienvenida a Atendel, ${data.nombre}` : "Bienvenida a Atendel"}</h1>
+        <h1 className="t-title">{saludo(data)}</h1>
         <p className="t-lead mt-4">{resumen(porRevisar)}</p>
         {data.incompleto && (
           <p role="status" className="mt-4 text-[0.9375rem] text-app-fg-2">

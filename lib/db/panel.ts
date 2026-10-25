@@ -2,13 +2,14 @@ import { cache } from "react";
 import { AGENTS, type AgentId, type PlanId } from "@/lib/agents";
 import { getServerSupabase } from "@/lib/supabase/server";
 import type { Actividad, Conversation, Grupo } from "@/lib/db/types";
-import { formatoDia, formatoHora, inicioDeMes } from "@/components/dashboard/format";
+import { consultaUsoDelMes } from "@/lib/db/uso";
+import { formatoDia, formatoHora } from "@/components/dashboard/format";
 import { agentesDisponibles } from "@/components/dashboard/plan";
 import type { EstadoActividad, TableroData } from "@/components/dashboard/types";
 
 /**
  * Consultas de SOLO LECTURA del panel real. Todo pasa por la sesión de la persona
- * (RLS): cada quien ve únicamente lo suyo.
+ * (RLS): cada quien ve únicamente lo suyo. El uso del mes sale de `uso_mensual`.
  */
 
 export type PanelResultado =
@@ -49,12 +50,7 @@ export const cargarPanel = cache(async (): Promise<PanelResultado> => {
   const [perfilR, limitesR, usadosR, actividadR, gruposR, conversacionesR] = await Promise.all([
     sb.from("profiles").select("nombre, negocio, plan, equipo").eq("id", userId).maybeSingle(),
     sb.from("plan_limits").select("plan, mensajes_mes"),
-    sb
-      .from("messages")
-      .select("id", { count: "exact", head: true })
-      .eq("user_id", userId)
-      .eq("rol", "usuario")
-      .gte("created_at", inicioDeMes()),
+    consultaUsoDelMes(sb, userId),
     sb
       .from("actividad")
       .select("id, agente, accion, estado, detalle, created_at")
@@ -127,7 +123,7 @@ export const cargarPanel = cache(async (): Promise<PanelResultado> => {
       email,
       plan,
       disponibles: agentesDisponibles(plan, equipo),
-      usados: usadosR.count ?? 0,
+      usados: typeof usadosR.data?.mensajes === "number" ? usadosR.data.mensajes : 0,
       limite,
       actividad,
       grupos,

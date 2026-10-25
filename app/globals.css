@@ -52,6 +52,14 @@
   --chat-fg: 255 255 255;
   --chat-fg-2: 154 154 154;
 
+  /* Capa de navegación abierta y su línea (solo se ven en claro: Paper Frost y Control Gray) */
+  --nav-open: 0 0 0;
+  --line-nav: 0 0 0;
+
+  /* Carita de los personajes (en los dos modos): trazo casi negro y rubor */
+  --blob-ink: 11 11 12;
+  --blob-blush: 255 143 143;
+
   /* Personajes */
   --agent-lola: 255 184 41;
   --agent-clara: 31 184 154;
@@ -127,6 +135,10 @@
   --chat-hover: 230 230 232;
   --chat-fg: 29 29 31;
   --chat-fg-2: 112 112 112;
+
+  /* Capa de navegación abierta (#fafafc) y su línea (#e6e6e8) */
+  --nav-open: 250 250 252;
+  --line-nav: 230 230 232;
 
   /* Personajes, un tono más profundo para fondo blanco */
   --agent-lola: 242 162 12;

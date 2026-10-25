@@ -17,11 +17,3 @@ export function textoBloqueado(agente: AgentId, plan: PlanId): string {
   if (plan === "max") return "No está en tu equipo";
   return agente === "lola" ? "Disponible en One y Max" : "Disponible en Max";
 }
-
-/** Línea corta de cada agente (textos.md §3). */
-export const LINEA_AGENTE: Record<AgentId, string> = {
-  lola: "Contesta tu WhatsApp a cualquier hora.",
-  clara: "Resume tu correo y marca lo urgente.",
-  victor: "Trae de regreso a quien dejó de venir.",
-  iris: "Redacta, compara y arma tus reportes.",
-};

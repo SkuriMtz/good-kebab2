@@ -1,0 +1,570 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ------------------------------------------------------------------ */
+/* Tokens. Fuente: docs/referencias/ (archivos del dueño).             */
+/* Oscuro = Dala (por defecto) · Claro = Apple ([data-theme="light"]). */
+/* Colores como tripletas RGB para que Tailwind maneje la opacidad.    */
+/* ------------------------------------------------------------------ */
+
+:root,
+[data-theme="dark"] {
+  color-scheme: dark;
+
+  /* Sitio: Void, Bone White, Ash Gray, Silver Mist, Electric Iris, Saffron Spark, Deep Verdant */
+  --canvas: 0 0 0;
+  --canvas-alt: 0 0 0;
+  --surface: 0 0 0;
+  --ink: 255 255 255;
+  --ink-2: 189 189 189;
+  --ink-3: 154 154 154;
+  --line: 38 38 38;
+  --line-strong: 64 64 64;
+  --field: 18 18 18;
+  --field-line: 18 18 18;
+  --brand: 128 82 255;
+  --brand-hover: 113 68 242;
+  --brand-press: 98 54 224;
+  --link: 255 184 41;
+  --accent: 255 184 41;
+  --verdant: 21 132 110;
+  --danger: 255 122 110;
+  --success: 92 214 160;
+
+  /* Panel */
+  --app-bg: 0 0 0;
+  --app-bar: 0 0 0;
+  --app-card: 0 0 0;
+  --app-field: 18 18 18;
+  --app-hover: 20 20 20;
+  --app-line: 38 38 38;
+  --app-fg: 255 255 255;
+  --app-fg-2: 154 154 154;
+
+  /* Chat */
+  --chat-bg: 0 0 0;
+  --chat-panel: 0 0 0;
+  --chat-pill: 18 18 18;
+  --chat-card: 0 0 0;
+  --chat-composer: 18 18 18;
+  --chat-hover: 20 20 20;
+  --chat-fg: 255 255 255;
+  --chat-fg-2: 154 154 154;
+
+  /* Personajes */
+  --agent-lola: 255 184 41;
+  --agent-clara: 31 184 154;
+  --agent-victor: 255 90 138;
+  --agent-iris: 169 139 255;
+
+  /* Forma */
+  --radius-control: 24px;
+  --radius-field: 24px;
+  --radius-card: 24px;
+  --header-h: 64px;
+
+  /* Tipo (Dala: títulos 400 con -0.04em, párrafos 18px en 200) */
+  --w-display: 400;
+  --tr-display: -0.04em;
+  --w-body: 200;
+  --fs-body: 1.125rem;
+  --lh-body: 1.5;
+  --tr-body: 0em;
+  --particle-alpha: 0.3;
+
+  /* Ritmo (unidad 6px, secciones 60–120px, máximo 1280px) */
+  --gutter: clamp(18px, 4vw, 48px);
+  --section: clamp(84px, 9vw, 120px);
+  --page-max: 1280px;
+
+  /* Movimiento */
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in: cubic-bezier(0.4, 0, 1, 1);
+  --dur-in: 700ms;
+  --dur-out: 200ms;
+}
+
+[data-theme="light"] {
+  color-scheme: light;
+
+  /* Sitio: Gallery White, Studio Mist, Paper Frost, Hairline Silver, Control Gray, Ink, Slate, Steel, Blues, Launch Orange */
+  --canvas: 255 255 255;
+  --canvas-alt: 245 245 247;
+  --surface: 255 255 255;
+  --ink: 29 29 31;
+  --ink-2: 29 29 31;
+  --ink-3: 112 112 112;
+  --line: 214 214 214;
+  --line-strong: 134 134 139;
+  --field: 255 255 255;
+  --field-line: 134 134 139;
+  --brand: 0 113 227;
+  --brand-hover: 0 104 209;
+  --brand-press: 0 91 184;
+  --link: 0 102 204;
+  --accent: 182 68 0;
+  --verdant: 21 132 110;
+  --danger: 196 38 46;
+  --success: 22 128 61;
+
+  /* Panel */
+  --app-bg: 245 245 247;
+  --app-bar: 255 255 255;
+  --app-card: 255 255 255;
+  --app-field: 255 255 255;
+  --app-hover: 230 230 232;
+  --app-line: 214 214 214;
+  --app-fg: 29 29 31;
+  --app-fg-2: 112 112 112;
+
+  /* Chat */
+  --chat-bg: 255 255 255;
+  --chat-panel: 245 245 247;
+  --chat-pill: 245 245 247;
+  --chat-card: 245 245 247;
+  --chat-composer: 255 255 255;
+  --chat-hover: 230 230 232;
+  --chat-fg: 29 29 31;
+  --chat-fg-2: 112 112 112;
+
+  /* Personajes, un tono más profundo para fondo blanco */
+  --agent-lola: 242 162 12;
+  --agent-clara: 21 132 110;
+  --agent-victor: 232 57 108;
+  --agent-iris: 125 92 242;
+
+  --radius-control: 9999px;
+  --radius-field: 980px;
+  --radius-card: 28px;
+  --header-h: 48px;
+
+  /* Tipo (Apple: títulos 600 con tracking corto, párrafos 17px/1.47 con -0.374px) */
+  --w-display: 600;
+  --tr-display: -0.015em;
+  --w-body: 400;
+  --fs-body: 1.0625rem;
+  --lh-body: 1.47;
+  --tr-body: -0.022em;
+  --particle-alpha: 0;
+
+  /* Ritmo (unidad 4px, secciones 90px) */
+  --section: clamp(72px, 7vw, 90px);
+}
+
+/* ------------------------------------------------------------------ */
+/* Base                                                                */
+/* ------------------------------------------------------------------ */
+
+@layer base {
+  html {
+    background: rgb(var(--canvas));
+    -webkit-text-size-adjust: 100%;
+    text-rendering: optimizeLegibility;
+  }
+
+  /* El color de página va solo en <html>: así el fondo de partículas (z-index
+     negativo) queda entre el color y el contenido. */
+  body {
+    @apply font-sans text-ink antialiased;
+    font-weight: var(--w-body);
+    letter-spacing: var(--tr-body);
+    min-height: 100dvh;
+  }
+
+  ::selection {
+    background: rgb(var(--brand) / 0.3);
+  }
+
+  :focus-visible {
+    outline: 2px solid rgb(var(--brand));
+    outline-offset: 3px;
+  }
+
+  button,
+  a,
+  input,
+  textarea,
+  select {
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  img,
+  svg,
+  canvas {
+    display: block;
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/* Tipografía (usa estas clases, no tamaños sueltos).                  */
+/* Cada clase toma los valores del archivo de su modo.                 */
+/* ------------------------------------------------------------------ */
+
+@layer components {
+  /* Portada. Dala heading-lg 78px/1.1 · Apple hero 80px/1.05 */
+  .t-hero {
+    font-size: clamp(2.75rem, 1rem + 4.75vw, 4.875rem);
+    line-height: 1.1;
+    font-weight: var(--w-display);
+    letter-spacing: var(--tr-display);
+    text-wrap: balance;
+  }
+  [data-theme="light"] .t-hero {
+    font-size: clamp(2.5rem, 1.2rem + 4.2vw, 5rem);
+    line-height: 1.05;
+  }
+
+  /* Escala máxima (nombres de agentes, cierres). Dala display 113px · Apple 80px */
+  .t-display {
+    font-size: clamp(3.25rem, 0.6rem + 7.4vw, 7.0625rem);
+    line-height: 1;
+    font-weight: var(--w-display);
+    letter-spacing: var(--tr-display);
+  }
+  [data-theme="light"] .t-display {
+    font-size: clamp(2.75rem, 1rem + 5vw, 5rem);
+    line-height: 1.05;
+  }
+
+  /* Título de sección. Dala heading 48px/1.1 · Apple feature-heading 40px */
+  .t-title {
+    font-size: clamp(2.25rem, 1.4rem + 2.4vw, 3rem);
+    line-height: 1.1;
+    font-weight: var(--w-display);
+    letter-spacing: -0.035em;
+    text-wrap: balance;
+  }
+  [data-theme="light"] .t-title {
+    font-size: clamp(2rem, 1.3rem + 1.9vw, 2.5rem);
+    line-height: 1.1;
+    letter-spacing: -0.01em;
+  }
+
+  /* Título grande de sección. Dala heading-lg 78px · Apple 48px */
+  .t-title-lg {
+    font-size: clamp(2.5rem, 1rem + 4.6vw, 4.875rem);
+    line-height: 1.1;
+    font-weight: var(--w-display);
+    letter-spacing: var(--tr-display);
+    text-wrap: balance;
+  }
+  [data-theme="light"] .t-title-lg {
+    font-size: clamp(2.25rem, 1.3rem + 2.6vw, 3rem);
+    line-height: 1.08;
+  }
+
+  /* Subtítulo. Dala heading-2xs 24px · Apple kicker 21px/600 */
+  .t-h3 {
+    font-size: 1.5rem;
+    line-height: 1.25;
+    font-weight: var(--w-display);
+    letter-spacing: -0.02em;
+  }
+  [data-theme="light"] .t-h3 {
+    font-size: 1.3125rem;
+    line-height: 1.19;
+    letter-spacing: 0.011em;
+  }
+
+  /* Párrafo. Dala 18px/1.5 peso 200 · Apple 17px/1.47 peso 400 */
+  .t-lead,
+  .t-body {
+    font-size: var(--fs-body);
+    line-height: var(--lh-body);
+    font-weight: var(--w-body);
+    letter-spacing: var(--tr-body);
+    max-width: 62ch;
+    text-wrap: pretty;
+  }
+  .t-lead {
+    color: rgb(var(--ink-2));
+  }
+
+  /* Texto pequeño. Dala 15px · Apple body-small 14px/1.29 */
+  .t-small {
+    font-size: 0.9375rem;
+    line-height: 1.45;
+  }
+  [data-theme="light"] .t-small {
+    font-size: 0.875rem;
+    line-height: 1.29;
+    letter-spacing: -0.016em;
+  }
+
+  /* Etiqueta sobre un título o párrafo.
+     Dala: 14px 600 MAYÚSCULAS 0.025em en azafrán · Apple: kicker 21px/600 en ink */
+  .t-label {
+    font-size: 0.875rem;
+    line-height: 1.2;
+    font-weight: 600;
+    letter-spacing: 0.025em;
+    text-transform: uppercase;
+    color: rgb(var(--accent));
+  }
+  [data-theme="light"] .t-label {
+    font-size: 1.3125rem;
+    line-height: 1.1;
+    letter-spacing: 0.011em;
+    text-transform: none;
+    color: rgb(var(--ink));
+  }
+
+  /* Estado pequeño ("Próximamente", "Datos de ejemplo").
+     Dala: 12px MAYÚSCULAS azafrán · Apple: Launch Orange 12px/600 texto plano */
+  .t-status {
+    font-size: 0.75rem;
+    line-height: 1.33;
+    font-weight: 600;
+    letter-spacing: 0.025em;
+    text-transform: uppercase;
+    color: rgb(var(--accent));
+  }
+  [data-theme="light"] .t-status {
+    text-transform: none;
+    letter-spacing: -0.01em;
+  }
+
+  /* Enlaces de navegación. Dala 14px 600 MAYÚSCULAS · Apple 12px 400 */
+  .t-nav {
+    font-size: 0.875rem;
+    line-height: 1.2;
+    font-weight: 600;
+    letter-spacing: 0.025em;
+    text-transform: uppercase;
+  }
+  [data-theme="light"] .t-nav {
+    font-size: 0.75rem;
+    line-height: 1;
+    font-weight: 400;
+    letter-spacing: -0.01em;
+    text-transform: none;
+  }
+
+  .t-num {
+    font-variant-numeric: tabular-nums;
+  }
+
+  .page-w {
+    width: 100%;
+    max-width: var(--page-max);
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: var(--gutter);
+    padding-right: var(--gutter);
+  }
+
+  /* Banda de sección: en claro es Studio Mist a todo lo ancho; en oscuro no existe */
+  .band {
+    background: rgb(var(--canvas-alt));
+  }
+
+  /* Tarjeta: en oscuro el contenido flota sobre negro (sin caja);
+     en claro es blanca, radio 28px, sin borde ni sombra, sobre una banda #f5f5f7 */
+  .card {
+    border-radius: var(--radius-card);
+  }
+  [data-theme="light"] .card {
+    background: rgb(var(--surface));
+    padding: 28px;
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/* Revelado al bajar: el contenido solo se oculta si hay JS            */
+/* ------------------------------------------------------------------ */
+
+.js [data-r] {
+  opacity: 0;
+  transform: translate3d(0, 24px, 0);
+}
+
+.js .is-in [data-r],
+.js [data-r].is-in,
+.reveal-all [data-r] {
+  opacity: 1;
+  transform: none;
+  transition:
+    opacity var(--dur-in) var(--ease-out),
+    transform 800ms var(--ease-out);
+  transition-delay: calc(var(--i, 0) * 70ms);
+}
+
+/* ------------------------------------------------------------------ */
+/* Transiciones entre páginas (View Transitions)                       */
+/* La barra y el fondo se quedan quietos; el contenido sale y entra.  */
+/* ------------------------------------------------------------------ */
+
+/*
+ * El contenido vive en `root`: su captura es solo lo que se ve en pantalla,
+ * así sale desde donde estaba la persona. La barra (site-header / app-top),
+ * el lateral (app-side) y el fondo de partículas (site-bg, transparente)
+ * tienen nombre propio y se quedan quietos.
+ */
+::view-transition-old(root),
+::view-transition-new(root) {
+  mix-blend-mode: normal;
+}
+::view-transition-old(root) {
+  animation: vt-out var(--dur-out) var(--ease-in) both;
+}
+::view-transition-new(root) {
+  animation: vt-in 560ms var(--ease-out) 60ms both;
+}
+/* Volver con el gesto del navegador: el navegador ya anima, no duplicar */
+html[data-nav="pop"]::view-transition-old(root),
+html[data-nav="pop"]::view-transition-new(root) {
+  animation: none;
+}
+
+/* Piezas fijas: si están en las dos páginas, no se mueven */
+::view-transition-group(site-header),
+::view-transition-group(site-bg),
+::view-transition-group(app-top),
+::view-transition-group(app-side) {
+  animation: none;
+}
+::view-transition-old(site-header),
+::view-transition-old(site-bg),
+::view-transition-old(app-top),
+::view-transition-old(app-side) {
+  display: none;
+}
+::view-transition-new(site-header),
+::view-transition-new(site-bg),
+::view-transition-new(app-top),
+::view-transition-new(app-side) {
+  animation: none;
+}
+/* …y si solo están en una de las dos páginas, aparecen o se van con un fundido */
+::view-transition-old(site-header):only-child,
+::view-transition-old(site-bg):only-child,
+::view-transition-old(app-top):only-child,
+::view-transition-old(app-side):only-child {
+  display: block;
+  animation: vt-fade-out var(--dur-out) var(--ease-in) both;
+}
+::view-transition-new(site-header):only-child,
+::view-transition-new(site-bg):only-child,
+::view-transition-new(app-top):only-child,
+::view-transition-new(app-side):only-child {
+  animation: vt-fade-in 420ms var(--ease-out) both;
+}
+
+@keyframes vt-out {
+  to {
+    opacity: 0;
+    transform: translate3d(0, -16px, 0);
+  }
+}
+@keyframes vt-in {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 40px, 0);
+  }
+}
+
+/* Cambio de tema: fundido corto de toda la pantalla */
+html[data-vt="theme"]::view-transition-old(*) {
+  display: block;
+  animation: vt-fade-out 220ms var(--ease-in) both;
+}
+html[data-vt="theme"]::view-transition-new(*) {
+  animation: vt-fade-in 380ms var(--ease-out) both;
+}
+html[data-vt="theme"]::view-transition-group(*) {
+  animation: none;
+}
+@keyframes vt-fade-out {
+  to {
+    opacity: 0;
+  }
+}
+@keyframes vt-fade-in {
+  from {
+    opacity: 0;
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/* Lenis                                                               */
+/* ------------------------------------------------------------------ */
+
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+/* ------------------------------------------------------------------ */
+/* Reducir movimiento: todo visible, nada se mueve                     */
+/* ------------------------------------------------------------------ */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    transition-delay: 0ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .js [data-r] {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) {
+    animation: none !important;
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/* Personajes                                                          */
+/* ------------------------------------------------------------------ */
+
+.blob-alive .blob-eye {
+  animation: blob-blink 6.5s infinite;
+}
+.blob-alive .blob-eye + .blob-eye {
+  animation-delay: 0.04s;
+}
+@keyframes blob-blink {
+  0%,
+  93%,
+  100% {
+    transform: scaleY(1);
+  }
+  95.5% {
+    transform: scaleY(0.12);
+  }
+}
+
+/* Menú del celular: los enlaces entran escalonados */
+.sheet-item {
+  animation: sheet-in 520ms var(--ease-out) both;
+}
+.sheet-item:nth-child(1) { animation-delay: 80ms; }
+.sheet-item:nth-child(2) { animation-delay: 130ms; }
+.sheet-item:nth-child(3) { animation-delay: 180ms; }
+.sheet-item:nth-child(4) { animation-delay: 230ms; }
+.sheet-item:nth-child(5) { animation-delay: 280ms; }
+.sheet-item:nth-child(6) { animation-delay: 330ms; }
+@keyframes sheet-in {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 16px, 0);
+  }
+}

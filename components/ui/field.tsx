@@ -7,7 +7,7 @@ export type FieldStatus = "idle" | "error" | "success";
 
 const control =
   // Oscuro: relleno blanco al 7% sin borde (radio 24px). Claro: blanco con borde #86868b (radio 980px).
-  "w-full rounded-field border bg-field text-ink placeholder:text-ink-3 " +
+  "w-full border bg-field text-ink placeholder:text-ink-3 " +
   "transition-[border-color,background-color] duration-200 ease-out " +
   "focus:outline-none focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand " +
   "disabled:opacity-60";
@@ -69,7 +69,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(function Input(
     <input
       ref={ref}
       aria-invalid={status === "error" || undefined}
-      className={cn(control, statusBorder[status], inputSize === "lg" ? "h-[45px] px-5 text-base light:h-11" : "h-10 px-4 text-[0.9375rem]", className)}
+      className={cn(control, "rounded-field", statusBorder[status], inputSize === "lg" ? "h-[45px] px-5 text-base light:h-11" : "h-10 px-4 text-[0.9375rem]", className)}
       {...rest}
     />
   );
@@ -85,7 +85,7 @@ export const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(function 
     <textarea
       ref={ref}
       aria-invalid={status === "error" || undefined}
-      className={cn(control, statusBorder[status], "min-h-[140px] resize-y rounded-[24px] px-5 py-4 text-[0.9375rem] leading-relaxed", className)}
+      className={cn(control, statusBorder[status], "min-h-[140px] resize-y rounded-[24px] light:rounded-[22px] px-5 py-4 text-[0.9375rem] leading-relaxed", className)}
       {...rest}
     />
   );

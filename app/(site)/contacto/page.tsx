@@ -1,12 +1,18 @@
-import { Link } from "next-view-transitions";
+import type { Metadata } from "next";
+import { ContactForm } from "@/components/landing/contact-form";
+import { CONTACT } from "@/components/landing/content";
+import { PageShell } from "@/components/landing/page-shell";
+import { TeamRow } from "@/components/landing/team-row";
 
-// Página temporal de la base: el Constructor 1 la reemplaza.
-export default function Contacto() {
+export const metadata: Metadata = {
+  title: "Contacto",
+  description: CONTACT.text,
+};
+
+export default function ContactoPage() {
   return (
-    <section className="page-w min-h-[100dvh] pt-40">
-      <h1 className="t-hero">Contacto</h1>
-      <p className="t-lead mt-6">Página de prueba.</p>
-      <Link href="/" className="mt-6 inline-block text-link underline">Volver</Link>
-    </section>
+    <PageShell title={CONTACT.title} text={CONTACT.text} aside={<TeamRow />}>
+      <ContactForm />
+    </PageShell>
   );
 }

@@ -29,13 +29,18 @@ export function SmoothScroll() {
   const pathname = usePathname();
 
   useEffect(() => {
-    const desktop = window.matchMedia("(pointer: fine) and (min-width: 1024px)");
+    const desktop = window.matchMedia("(pointer: fine) and (hover: hover) and (min-width: 1024px)");
     const reduce = window.matchMedia("(prefers-reduced-motion: reduce)");
     const tick = (time: number) => lenis?.raf(time * 1000);
 
     const start = () => {
       if (lenis || !desktop.matches || reduce.matches) return;
-      lenis = new Lenis({ duration: 1.1, easing: (t) => 1 - Math.pow(1 - t, 4), anchors: true });
+      lenis = new Lenis({
+        duration: 1.1,
+        easing: (t) => 1 - Math.pow(1 - t, 4),
+        anchors: true,
+        stopInertiaOnNavigate: true,
+      });
       lenis.on("scroll", ScrollTrigger.update);
       gsap.ticker.add(tick);
       gsap.ticker.lagSmoothing(0);
@@ -45,6 +50,7 @@ export function SmoothScroll() {
       gsap.ticker.remove(tick);
       lenis.destroy();
       lenis = null;
+      gsap.ticker.lagSmoothing(500, 33);
     };
     const sync = () => (desktop.matches && !reduce.matches ? start() : stop());
 

@@ -2,11 +2,12 @@
 
 Reglas aplicadas: spec §2. Sin tipos de negocio, sin cifras, sin testimonios, sin emojis, sin marcas ajenas. Horas "5:00 pm".
 Los textos entre `{llaves}` son variables. "Datos de ejemplo" va visible donde haya Estudio Luna.
+Botones y enlaces de la barra se escriben en minúsculas normales: en oscuro el CSS los pone en MAYÚSCULAS (`text-transform`), en claro quedan como están. "Botón principal" = violeta `#8052ff` en oscuro, azul `#0071e3` en claro; "secundario" = texto fantasma en oscuro (sin borde), píldora de contorno en claro. Uno principal por pantalla.
 
 ## 0. Vocabulario (para afinar tono)
 
 La búsqueda no dio testimonios directos de dueños; el vocabulario sale de lo que sí se repite en notas sobre pymes y WhatsApp.
-- Usar: "contestar", "dejar en visto" (solo en el 404 o como guiño), "cita", "mover la cita", "que no llegue", "que no regrese", "se junta el correo", "factura", "fecha límite", "papeleo", "visto bueno".
+- Usar: "contestar", "dejar en visto" (solo como guiño, en "Te escriben a todas horas"), "cita", "mover la cita", "que no llegue", "que no regrese", "se junta el correo", "factura", "fecha límite", "papeleo", "visto bueno".
 - Evitar: jerga de software ("gestionar", "optimizar", "leads", "embudo") y cualquier palabra de un tipo de negocio concreto; preferir "duda" y "cliente".
 - Siempre "agente" (no "bot"). Siempre "tu equipo". "IA" se menciona poco y sin adornos.
 
@@ -14,7 +15,7 @@ La búsqueda no dio testimonios directos de dueños; el vocabulario sale de lo q
 
 - Marca: Atendel
 - Enlaces (5): Agentes · Precios · Preguntas · Pruébalo · Contacto
-- Acción (contorno, no azul): Entrar
+- Acción: Entrar (botón secundario de la barra: texto fantasma en oscuro, píldora de contorno en claro; el principal de cada pantalla es el del contenido).
 - Cambio de tema (botón de ícono). aria-label en oscuro: "Cambiar a modo claro". En claro: "Cambiar a modo oscuro".
 - Etiqueta corta visible si hay espacio: "Claro" / "Oscuro"
 - Hamburguesa (solo ícono): aria-label "Abrir menú" / "Cerrar menú"
@@ -27,9 +28,9 @@ La búsqueda no dio testimonios directos de dueños; el vocabulario sale de lo q
 - Párrafo (29 palabras): Cuatro agentes de IA contestan tu WhatsApp, ordenan tu correo, buscan a quien dejó de venir y preparan tus documentos. Lo importante nunca sale sin que tú lo apruebes.
 - Campo, placeholder: tu@correo.com
 - Campo, etiqueta (oculta, para lector de pantalla): Tu correo
-- Botón (azul, único): Únete a la lista
+- Botón principal (único): Únete a la lista
 - Enlace de texto opcional bajo el botón: Ver a Lola en acción (ancla a la demo)
-- Texto pequeño: Solo usamos tu correo para avisarte de Atendel.
+- Texto pequeño: Usamos tu correo para avisarte de Atendel.
 
 Estados (mismos en la sección Lista de espera):
 - Enviando: Guardando tu correo…
@@ -60,9 +61,9 @@ Estados (mismos en la sección Lista de espera):
 - Nunca sin tu permiso: Mandar un mensaje a tus clientes.
 
 ### Iris · Oficina
-- Línea: Redacta, compara y arma tus reportes. (7)
+- Línea: Redacta, compara y arma tus reportes. (6)
 - Ficha: Redacta documentos, cartas y resúmenes · Arma el reporte del mes · Compara precios y proveedores · Explica trámites con palabras claras
-- Nunca sin tu permiso: Firmar o enviar un documento.
+- Nunca sin tu permiso: Enviar un documento.
 
 Etiqueta de la ficha: "Qué hace" · "Nunca sin tu permiso"
 
@@ -85,7 +86,7 @@ Los mensajes llegan de noche, en domingo, mientras comes. Contestarlos todos te 
 - Iris: Redacta las respuestas largas que no caben en un chat.
 
 ### Vives de que tus clientes regresen
-Alguien vino una vez y pasaron los meses sin que nadie le escribiera. Un mensaje a tiempo cambia eso.
+Alguien vino una vez y pasaron los meses sin que nadie le escribiera. Un mensaje a tiempo puede cambiar eso.
 - Lola: Agenda en cuanto el cliente responde.
 - Clara: Propone respuesta al correo de quien sigue esperando.
 - Víctor: Escribe un mensaje personal a quien no viene hace tiempo y pide reseñas.
@@ -109,7 +110,7 @@ Facturas con fecha límite, cartas, reportes, trámites que no terminas de enten
 Mensajes (C = cliente, L = Lola):
 1. C, 9:41 pm: Hola, buenas noches. ¿Cuánto cuesta la sesión de 1 hora?
 2. L, 9:41 pm: Hola, Marta, buenas noches. Soy Lola, la asistente de Estudio Luna. La sesión de 1 hora cuesta $450.
-   - Nota bajo el mensaje (chip pequeño): Precio de ejemplo. Lola usa el que tú definas.
+   - Nota bajo el mensaje (texto pequeño, sin cápsula de color): Precio de ejemplo. Lola usa el que tú definas.
 3. C, 9:42 pm: ¿Hasta qué hora atienden?
 4. L, 9:42 pm: De lunes a sábado, de 10:00 am a 7:00 pm.
 5. C, 9:42 pm: ¿Tienen lugar este jueves?
@@ -121,7 +122,7 @@ Mensajes (C = cliente, L = Lola):
 10. L, 9:44 pm: Eso lo decide Ana y no quiero prometerte algo que no sé. Ya le avisé; te responde en cuanto pueda.
    - Tarjeta de aviso (a Ana): Lola le avisó a Ana · Marta, con cita el jueves a las 5:00 pm, pregunta si hay descuento al llevar a una amiga. Este caso necesita a una persona.
 
-Sugerencias (3 botones de contorno, aparecen tras el mensaje 10; al tocar, el texto sale como mensaje del cliente):
+Sugerencias (3 botones secundarios, aparecen tras el mensaje 10; al tocar, el texto sale como mensaje del cliente):
 - "¿Puedo pagar con tarjeta?" → L: Sí, aquí se acepta tarjeta, transferencia y efectivo. Son las formas de pago que Ana dejó configuradas.
 - "Quiero cambiar mi cita" → L: Claro. Tu sesión es el jueves a las 5:00 pm. Tengo el viernes a las 11:00 am o el sábado a las 3:00 pm. Cuando elijas, la muevo y le aviso a Ana.
 - "¿Qué haces si no sabes algo?" → L: Te lo digo y le aviso a Ana. No invento respuestas ni prometo lo que no me toca.
@@ -135,26 +136,26 @@ Sugerencias (3 botones de contorno, aparecen tras el mensaje 10; al tocar, el te
 ### Free
 - Precio: Gratis
 - Incluye: A Clara, tu agente de correo · Pocos mensajes al mes · Entras con tu correo, sin contraseña
-- Botón (azul, el único de la sección): Empezar gratis (lleva a /entrar)
+- Botón principal (el único de la sección): Empezar gratis (lleva a /entrar)
 
 ### One
 - Precio: Próximamente
-- Incluye: A Lola y a Clara · Lola contesta tu WhatsApp y agenda tus citas · Los mensajes al mes se anunciarán con el precio
-- Botón (contorno): Únete a la lista
+- Incluye: A Lola y a Clara · Lola contesta tu WhatsApp y agenda tus citas · Los mensajes al mes aún no están definidos
+- Botón secundario: Únete a la lista
 
 ### Max
 - Precio: Próximamente
 - Incluye: Los cuatro agentes: Lola, Clara, Víctor e Iris · Tú eliges tu equipo · Muchos más mensajes al mes
-- Botón (contorno): Únete a la lista
+- Botón secundario: Únete a la lista
 
-- Nota al pie de la sección: Los precios de One y Max no están definidos. Si te unes a la lista, te avisamos primero.
+- Nota al pie de la sección: Los precios de One y Max no están definidos. Si te unes a la lista, te avisamos cuando estén listos.
 
 ## 7. Posibles preguntas
 
 - Título de sección: Posibles preguntas
 1. ¿Es difícil de usar? — Entras con tu correo, sin contraseña, y les escribes a los agentes como le escribirías a alguien de tu equipo.
 2. ¿Sirve para mi negocio? — Si das servicio, trabajas con citas, recibes mensajes de clientes o vives de que regresen, sí. Empieza con Free y mira si te quita trabajo.
-3. ¿Qué pasa si un agente se equivoca? — Lo importante nunca sale sin tu visto bueno: tú apruebas antes de enviar. Y cuando un caso no es claro, el agente te avisa en vez de inventar.
+3. ¿Qué pasa si un agente se equivoca? — Lo importante nunca sale sin tu visto bueno: tú apruebas antes de enviar. Y cuando un caso necesita a una persona, el agente te avisa.
 4. ¿Los agentes contestan solos? — Lola responde lo de todos los días: precios, horarios, formas de pago y citas. Cuando un caso necesita a una persona, te avisa.
 5. ¿Necesito una contraseña? — No. Escribes tu correo, te llega un enlace y entras.
 6. ¿Cuánto cuesta? — Free es gratis e incluye a Clara. One y Max llegan pronto y todavía no tienen precio publicado. Si te unes a la lista, te avisamos.
@@ -165,19 +166,19 @@ Sugerencias (3 botones de contorno, aparecen tras el mensaje 10; al tocar, el te
 
 ### Lista de espera (sección final)
 - Etiqueta: Lista de espera
-- Título: Te avisamos primero
+- Título: Te avisamos cuando estén listos
 - Párrafo: Deja tu correo y te escribimos cuando One y Max estén listos, con su precio. Mientras tanto puedes usar Free.
 - Selector opcional (etiqueta): Plan que te interesa · Opciones: Cualquiera · One · Max
 - Campo, placeholder: tu@correo.com
-- Botón (contorno aquí, para que el azul sea solo el de Free o el de la portada): Únete a la lista
-- Texto pequeño: Solo usamos tu correo para avisarte de Atendel.
+- Botón principal (es el único en esa pantalla; el de la portada queda lejos): Únete a la lista
+- Texto pequeño: Usamos tu correo para avisarte de Atendel.
 - Estados: los mismos de la Portada.
 
 ### Contacto (/contacto)
 - Título: Escríbenos
 - Párrafo: Cuéntanos qué necesitas o qué te gustaría que hiciera un agente. Te respondemos por correo.
 - Campos: Nombre (placeholder "Tu nombre") · Correo (placeholder "tu@correo.com") · Mensaje (placeholder "¿En qué te podemos ayudar?")
-- Botón (azul): Enviar mensaje
+- Botón principal: Enviar mensaje
 - Enviando: Enviando tu mensaje…
 - Éxito: Mensaje enviado. Te respondemos por correo.
 - Faltan campos (campos): Falta algo. Revisa tu nombre, tu correo y el mensaje.
@@ -189,7 +190,7 @@ Sugerencias (3 botones de contorno, aparecen tras el mensaje 10; al tocar, el te
 - Título: Entra con tu correo
 - Párrafo: Sin contraseña. Escribe tu correo y te mandamos un enlace para entrar.
 - Campo: Correo (placeholder "tu@correo.com")
-- Botón (azul): Enviarme el enlace
+- Botón principal: Enviarme el enlace
 - Enviando: Enviando el enlace…
 - Revisa tu correo (título): Revisa tu correo
 - Revisa tu correo (texto): Te mandamos un enlace a {correo}. Ábrelo en este mismo navegador para entrar. Si no lo ves, busca en spam.
@@ -202,7 +203,7 @@ Sugerencias (3 botones de contorno, aparecen tras el mensaje 10; al tocar, el te
 ### 404
 - Título: Esta página no contestó
 - Texto: Ni Lola la encontró, y eso que ella contesta a cualquier hora. Puede que el enlace esté mal escrito o que la página ya no exista.
-- Botón (azul): Volver al inicio
+- Botón principal: Volver al inicio
 
 ### Pie de página
 - Marca: Atendel
@@ -254,4 +255,5 @@ Etiqueta fija en panel, actividad y chat: "Datos de ejemplo". Dueña: Ana. Clien
 
 - Los "Nunca sin tu permiso" son compromisos de copy: confirmar con el producto que Lola no da descuentos ni cambia precios sin aprobación, y que Clara, Víctor e Iris no envían nada sin visto bueno.
 - Marcar siempre "$450", los horarios y los nombres de Estudio Luna como datos de ejemplo.
-- Un solo botón azul por pantalla: portada = "Únete a la lista"; precios = "Empezar gratis"; lista de espera final = contorno; contacto, entrar y 404 = su botón principal.
+- Un solo botón principal por pantalla: portada = "Únete a la lista"; precios = "Empezar gratis" (One y Max, secundarios); lista de espera final = "Únete a la lista"; contacto, entrar y 404 = su botón. "Entrar" de la barra es siempre secundario.
+- "Ábrelo en este mismo navegador" (Entrar) solo hace falta con el flujo PKCE; si se usa la plantilla con `token_hash` (tecnica.md §4) se puede quitar esa frase.

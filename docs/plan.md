@@ -35,9 +35,12 @@ Andamiaje, tokens (Dala/Apple), Inter, tema claro/oscuro, transiciones de págin
 ### Grupo B — Construcción (en paralelo)
 | Constructor | Carpetas propias |
 |---|---|
-| 1 · Landing | `app/(site)/**` (excepto layout), `components/landing/**` |
-| 2 · Panel | `app/pruebalo/(tablero)/**`, `app/(app)/panel/**`, `components/dashboard/**`, `lib/demo/tablero.ts` |
-| 3 · Chat y backend | `app/pruebalo/chat/**`, `app/(app)/chat/**`, `app/api/**`, `app/auth/**`, `app/salir/**`, `middleware.ts`, `supabase/**`, `components/chat/**`, `lib/chat/**`, `lib/demo/chat.ts` |
+| 1 · Landing | `app/(site)/**` (excepto `layout.tsx`), `app/not-found.tsx`, `components/landing/**` |
+| 2 · Panel y backend | `app/pruebalo/(tablero)/**`, `app/(app)/panel/**`, `components/dashboard/**`, `lib/demo/tablero.ts`, `lib/db/panel.ts`, `supabase/**`, `middleware.ts`, `app/auth/**`, `app/salir/**`, `app/api/lista/**`, `app/api/contacto/**` |
+| 3 · Chat | `app/pruebalo/chat/**`, `app/(app)/chat/**`, `app/api/chat/**`, `components/chat/**`, `lib/chat/**`, `lib/demo/chat.ts`, `lib/db/chat.ts` |
+
+Contrato de datos compartido: `lib/db/types.ts` (lo escribe el coordinador; nadie lo cambia sin avisar).
+Nadie crea `app/pruebalo/layout.tsx` ni `app/(app)/layout.tsx`.
 - Inspector B → lint + build, revisa reglas, arregla integración.
 
 ### Grupo C — Calidad (después de construir)

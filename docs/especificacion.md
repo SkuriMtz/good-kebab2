@@ -123,8 +123,9 @@ Oscuro es el modo por defecto; el claro es opción (botón en la barra).
 | `/pruebalo/chat` (+ `/pruebalo/chat/[id]`) | Chat con datos y respuestas de ejemplo (guion local) | Constructor 3 |
 | `/panel`, `/panel/actividad` | Panel real (requiere sesión) | Constructor 2 |
 | `/chat`, `/chat/[id]` | Chat real (requiere sesión, llama a la IA) | Constructor 3 |
-| `/auth/callback`, `/salir` | Sesión | Constructor 3 |
-| `/api/lista`, `/api/contacto`, `/api/chat` | API | Constructor 3 |
+| `/auth/callback`, `/salir` | Sesión | Constructor 2 |
+| `/api/lista`, `/api/contacto` | API | Constructor 2 |
+| `/api/chat` | API (IA) | Constructor 3 |
 
 ### Contratos de API (no cambiar sin avisar)
 

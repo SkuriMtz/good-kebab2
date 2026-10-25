@@ -177,7 +177,7 @@ export function PopMenu({
           className={cn(
             rowClass(!!it.checked, it.disabled),
             "focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-brand",
-            !it.disabled && "hover:text-chat-fg light:hover:bg-chat-bg",
+            !it.disabled && "hover:text-chat-fg active:translate-y-px light:hover:bg-chat-bg",
           )}
         >
           {it.leading}

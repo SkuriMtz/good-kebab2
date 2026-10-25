@@ -158,7 +158,7 @@ export const DEMO_CONVERSATIONS: DemoConversation[] = [
     agentes: ["clara"],
     grupo_id: null,
     ultimo: "Hay una factura que vence el viernes.",
-    updated_at: `${T0}10:15:00Z`,
+    updated_at: `${T0}20:30:00Z`,
     mensajes: [
       msg("k1", "usuario", null, "¿Qué llegó hoy a mi correo?", "10:14 am"),
       msg(
@@ -178,7 +178,7 @@ export const DEMO_CONVERSATIONS: DemoConversation[] = [
     agentes: ["victor"],
     grupo_id: null,
     ultimo: "Dejé el mensaje listo para que lo apruebes.",
-    updated_at: `${T0}10:48:00Z`,
+    updated_at: `${T0}19:30:00Z`,
     mensajes: [
       msg("v1", "usuario", null, "Busca a los clientes que ya no vienen y escríbeles.", "10:46 am"),
       msg(
@@ -198,7 +198,7 @@ export const DEMO_CONVERSATIONS: DemoConversation[] = [
     agentes: ["iris"],
     grupo_id: null,
     ultimo: "Ya está el borrador. ¿Lo revisas?",
-    updated_at: `${T0}11:05:00Z`,
+    updated_at: `${T0}18:30:00Z`,
     mensajes: [
       msg("r1", "usuario", null, "/reporte", "11:03 am"),
       msg("r2", "agente", "iris", "Ya está el borrador. ¿Lo revisas?", "11:05 am", { tarjeta: CARD_REPORTE }),
@@ -211,7 +211,7 @@ export const DEMO_CONVERSATIONS: DemoConversation[] = [
     agentes: ["lola"],
     grupo_id: null,
     ultimo: "Te propongo el viernes a las 11:00 am.",
-    updated_at: `${T0}09:58:00Z`,
+    updated_at: `${T0}17:30:00Z`,
     mensajes: [
       msg("a1", "usuario", null, "/agendar mover la cita de Marta", "9:56 am"),
       msg("a2", "agente", "lola", "Te propongo el viernes a las 11:00 am.", "9:58 am", { tarjeta: CARD_CITA_VIERNES }),

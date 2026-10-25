@@ -33,6 +33,7 @@ type Body = { conversationId?: unknown; agent?: unknown; groupId?: unknown; text
 const AGENT_IDS = AGENTS.map((a) => a.id) as string[];
 const MAX_AGENTS_IN_GROUP = 4;
 const MAX_TOKENS = 4096;
+const MAX_HISTORY_CHARS = 120000;
 
 function fail(status: number, error: string) {
   return NextResponse.json({ error }, { status, headers: { "Cache-Control": "no-store" } });
@@ -72,8 +73,17 @@ function toTurns(
     if (last && last.role === role) last.content += `\n\n${content}`;
     else turns.push({ role, content });
   }
-  while (turns.length && turns[0].role !== "user") turns.shift();
-  return turns;
+  // Con archivos adjuntos el historial puede crecer mucho: se conserva lo más reciente dentro de un presupuesto.
+  let total = 0;
+  let desde = turns.length;
+  for (let i = turns.length - 1; i >= 0; i--) {
+    total += turns[i].content.length;
+    if (total > MAX_HISTORY_CHARS && i < turns.length - 1) break;
+    desde = i;
+  }
+  const recientes = turns.slice(desde);
+  while (recientes.length && recientes[0].role !== "user") recientes.shift();
+  return recientes;
 }
 
 export async function POST(req: Request) {

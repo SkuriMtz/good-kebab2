@@ -202,6 +202,7 @@ export function ChatThread({ conversationId, conversation, initialMessages }: Pr
     } catch (e) {
       if (!isAbort(e)) throw e;
     } finally {
+      if (abortRef.current === ac) abortRef.current = null;
       setPhase({ kind: "idle" });
       setStreamingId(null);
       // Un mensaje a medias que se detuvo sin texto no se queda vacío.
@@ -265,6 +266,7 @@ export function ChatThread({ conversationId, conversation, initialMessages }: Pr
       throw e;
     });
 
+    if (abortRef.current === ac) abortRef.current = null;
     setPhase({ kind: "idle" });
     setStreamingId(null);
     setMessages((p) => p.filter((m) => !(m.rol === "agente" && !m.contenido && !m.tarjeta)));
@@ -442,7 +444,8 @@ export function ChatThread({ conversationId, conversation, initialMessages }: Pr
       : [];
 
   const nombre = ctx.userName?.trim();
-  const headerAgents = meta?.agentes ?? [];
+  const targetGroup = groupOf(target);
+  const headerAgents = meta?.agentes ?? (target.kind === "agente" ? [target.agent] : (targetGroup?.agentes ?? []));
 
   if (missing) {
     return (
@@ -510,6 +513,9 @@ export function ChatThread({ conversationId, conversation, initialMessages }: Pr
                 ))}
               </div>
             )}
+            <p className="mt-5 max-w-[40ch] text-[0.9375rem] font-normal text-chat-fg-2">
+              Escribe / para ver los comandos o @ para elegir a un agente.
+            </p>
           </div>
         ) : (
           <div

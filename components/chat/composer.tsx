@@ -250,7 +250,7 @@ export function Composer({
       return {
         id: `g-${g.id}`,
         title: g.nombre,
-        hint: locked ? "Incluye agentes que no vienen en tu plan" : g.agentes.map((a) => getAgent(a).name).join(" + "),
+        hint: locked ? "No viene en tu plan" : g.agentes.map((a) => getAgent(a).name).join(" + "),
         leading: <AgentStack agentes={g.agentes} size={34} />,
         disabled: locked,
         checked: target.kind === "grupo" && target.groupId === g.id,

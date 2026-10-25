@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
-import type { ReactNode } from "react";
+import { Suspense, type ReactNode } from "react";
 import { redirect } from "next/navigation";
 import { ChatFrame } from "@/components/chat/chat-frame";
+import { ChatSkeleton } from "@/components/chat/chat-skeleton";
 import { getChatUser, listConversations, listGrupos } from "@/lib/db/chat";
 import { allowedAgents } from "@/lib/chat/plan";
 import { getServerSupabase } from "@/lib/supabase/server";
@@ -14,7 +15,7 @@ export const metadata: Metadata = {
 };
 
 /** Chat en vivo: pide sesión, carga tu plan, tus conversaciones y tus grupos. */
-export default async function ChatLayout({ children }: { children: ReactNode }) {
+async function ChatData({ children }: { children: ReactNode }) {
   const sb = getServerSupabase();
   if (!sb) redirect("/entrar?error=no_configurado");
   const {
@@ -37,5 +38,13 @@ export default async function ChatLayout({ children }: { children: ReactNode }) 
     >
       {children}
     </ChatFrame>
+  );
+}
+
+export default function ChatLayout({ children }: { children: ReactNode }) {
+  return (
+    <Suspense fallback={<ChatSkeleton />}>
+      <ChatData>{children}</ChatData>
+    </Suspense>
   );
 }

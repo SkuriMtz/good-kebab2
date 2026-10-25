@@ -12,7 +12,7 @@ import { AgentStack } from "./agent-stack";
 import { ConversationRow } from "./conversation-row";
 
 const rowShell =
-  "group flex min-h-[64px] items-center gap-3.5 rounded-[20px] px-3 py-2.5 transition-colors duration-200 ease-out " +
+  "group flex min-h-[64px] items-center gap-3.5 rounded-[20px] px-3 py-2.5 transition-[color,background-color,transform] duration-200 ease-out active:translate-y-px " +
   "focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-brand";
 const rowTitle = "block truncate text-[1.125rem] font-normal leading-snug transition-colors duration-200 text-ink-2 group-hover:text-chat-fg light:font-medium light:text-chat-fg";
 const rowSub = "mt-0.5 block truncate text-[0.875rem] font-normal leading-snug text-chat-fg-2";
@@ -76,7 +76,7 @@ export function ConversationList({ onNavigate, compact = false }: { onNavigate?:
                 <AgentStack agentes={g.agentes} size={42} className={locked ? "opacity-50 grayscale" : undefined} />
                 <span className="min-w-0 flex-1">
                   <span className={cn(rowTitle, locked && "opacity-60")}>{g.nombre}</span>
-                  <span className={cn(rowSub, locked && "opacity-60")}>{locked ? "Incluye agentes que no vienen en tu plan" : names}</span>
+                  <span className={cn(rowSub, locked && "opacity-60")}>{locked ? "No viene en tu plan" : names}</span>
                 </span>
                 {locked && <Icon name="lock" size={18} className="shrink-0 text-chat-fg-2" />}
               </>

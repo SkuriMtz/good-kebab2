@@ -5,12 +5,12 @@ import { parseCommand } from "./commands";
 // la interfaz reconoce para mostrar solo el nombre del archivo.
 
 export const MAX_ATTACH_BYTES = 60 * 1024;
-export const MAX_TEXT_CHARS = 20000;
+export const MAX_TEXT_CHARS = 70000;
 
 const ATTACH_RE = /\n*---adjunto:([^\n]+?)---\n[\s\S]*$/;
 
 export function withAttachment(texto: string, nombre: string, contenido: string): string {
-  const limpio = nombre.replace(/[\n-]+/g, " ").trim() || "archivo";
+  const limpio = nombre.replace(/\s*\n\s*/g, " ").replace(/-{3,}/g, "-").trim() || "archivo";
   return `${texto.trim()}\n\n---adjunto:${limpio}---\n${contenido}`;
 }
 

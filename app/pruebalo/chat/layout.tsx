@@ -6,7 +6,7 @@ import { DEMO_GROUPS, DEMO_SUMMARIES, DEMO_USER } from "@/lib/demo/chat";
 
 export const metadata: Metadata = {
   title: "Chat de ejemplo",
-  description: "Habla con los agentes de Estudio Luna. Son datos de ejemplo con un guion: no hay IA detrás.",
+  description: "Prueba el chat con los agentes de Estudio Luna. Son datos de ejemplo y respuestas de guion, sin IA real.",
 };
 
 /** Chat de Pruébalo: lista lateral y conversaciones de Estudio Luna (datos de ejemplo, guion local). */

@@ -21,7 +21,7 @@ export const COMMANDS: ChatCommand[] = [
     nombre: "/agendar",
     agent: "lola",
     descripcion: "Crea o mueve una cita",
-    estado: "Lola está revisando tu agenda",
+    estado: "Lola está preparando la cita",
     instruccion:
       "La persona usó /agendar: quiere crear o mover una cita. Pide los datos que falten (cliente, día, hora, tipo de sesión) y prepara la propuesta de cita para que la apruebe. No confirmes nada por tu cuenta.",
   },
@@ -57,7 +57,7 @@ export const COMMANDS: ChatCommand[] = [
     nombre: "/recordar",
     agent: "lola",
     descripcion: "Programa un aviso para después",
-    estado: "Lola está programando el aviso",
+    estado: "Lola está preparando el aviso",
     instruccion:
       "La persona usó /recordar: quiere un aviso para después. Confirma qué hay que recordar, para quién y cuándo. Aclara que en esta versión no puedes programar envíos automáticos: deja el recordatorio redactado.",
   },

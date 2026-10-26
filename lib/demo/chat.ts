@@ -308,12 +308,15 @@ function replyLola(texto: string, cmd: ChatCommand | null, resto: string): Reply
   }
   if (cmd?.id === "recordar") {
     return {
-      contenido: "Listo, dejé el aviso programado. Te lo mando justo en el momento que me indicaste.",
+      contenido: resto
+        ? "Listo, preparé el aviso con lo que me diste. Revísalo y, si te parece bien, lo dejo programado."
+        : "Claro. Dime qué quieres recordar y para cuándo, y dejo el aviso listo para que lo apruebes.",
       tarjeta: {
         tipo: "aviso",
-        titulo: "Aviso programado",
-        detalle: resto || "Dime qué te recuerdo y cuándo.",
-        accion: "Cambiar el aviso",
+        titulo: "Aviso por programar",
+        detalle: resto || "Falta decir qué recordar y para cuándo.",
+        accion: "Aprobar y programar",
+        pendiente: true,
       },
     };
   }

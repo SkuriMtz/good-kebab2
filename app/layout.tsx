@@ -13,7 +13,7 @@ export const metadata: Metadata = {
     template: "%s · Atendel",
   },
   description:
-    "Agentes de inteligencia artificial para negocios que atienden personas: contestan, agendan, resumen tu correo y traen de regreso a tus clientes. Lo importante nunca sale sin tu visto bueno.",
+    "Agentes de IA para negocios que atienden personas: contestan tu WhatsApp, agendan citas, ordenan tu correo y traen de regreso a tus clientes. Lo importante nunca sale sin tu visto bueno.",
   openGraph: {
     title: "Atendel",
     description: "Que ningún cliente se quede sin respuesta.",

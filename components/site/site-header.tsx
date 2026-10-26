@@ -66,7 +66,7 @@ export function SiteHeader() {
       className={cn(
         "fixed inset-x-0 top-0 z-50 [view-transition-name:site-header]",
         "border-b border-transparent transition-[background-color,border-color] duration-300 ease-out",
-        scrolled && "bg-canvas/90 light:border-line-nav light:bg-nav-open/80 light:backdrop-blur-[20px]",
+        scrolled && "bg-canvas light:border-line-nav light:bg-nav-open/80 light:backdrop-blur-[20px]",
       )}
     >
       <a

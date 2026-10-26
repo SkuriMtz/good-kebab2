@@ -14,7 +14,8 @@ export const TABLERO_DEMO: TableroData = {
   plan: "max",
   disponibles: agentesDisponibles("max"),
   usados: 132,
-  limite: 500,
+  // Sin tope: los mensajes de cada plan no están definidos y el ejemplo no inventa una cifra.
+  limite: null,
   actividad: [
     {
       id: "a1",

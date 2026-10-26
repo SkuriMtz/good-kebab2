@@ -191,14 +191,14 @@ export function Composer({
     if (!file) return;
     const esTexto = file.type.startsWith("text/") || /\.(txt|md|csv|tsv|json)$/i.test(file.name);
     if (!esTexto || file.size > MAX_ATTACH_BYTES) {
-      setAttachError("Por ahora solo leo archivos de texto (.txt, .md, .csv) de hasta 60 KB.");
+      setAttachError("Por ahora solo se pueden adjuntar archivos de texto (.txt, .md o .csv) de hasta 60 KB.");
       return;
     }
     try {
       onAttach({ nombre: file.name, contenido: await file.text() });
       setAttachError(null);
     } catch {
-      setAttachError("No pude leer ese archivo. Prueba con otro.");
+      setAttachError("No se pudo leer ese archivo. Prueba con otro.");
     }
   };
 

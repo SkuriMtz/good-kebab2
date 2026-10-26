@@ -491,7 +491,11 @@ export function ChatThread({ conversationId, conversation, initialMessages }: Pr
             <h1 className="t-title-lg">{nombre ? `Hola, ${nombre}` : "Hola"}</h1>
             <p className="t-lead mt-5 max-w-[34ch] text-balance">¿Qué quieres que haga tu equipo hoy?</p>
             {quick.length > 0 && (
-              <div className="mt-8 flex flex-wrap justify-center gap-x-1 gap-y-2" role="group" aria-label="Comandos para empezar">
+              <div
+                className="mt-8 grid w-full max-w-[17rem] grid-cols-2 justify-items-center gap-x-1 gap-y-2 sm:flex sm:max-w-none sm:flex-wrap sm:justify-center"
+                role="group"
+                aria-label="Comandos para empezar"
+              >
                 {quick.map((c) => (
                   <Button
                     key={c.id}
@@ -515,7 +519,7 @@ export function ChatThread({ conversationId, conversation, initialMessages }: Pr
                 ))}
               </div>
             )}
-            <p className="mt-5 max-w-[40ch] text-[0.9375rem] font-normal text-chat-fg-2">
+            <p className="mt-7 max-w-[30ch] text-balance text-[0.8125rem] font-normal leading-relaxed text-chat-fg-2">
               Escribe / para ver los comandos o @ para elegir a un agente.
             </p>
           </div>

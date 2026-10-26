@@ -194,7 +194,7 @@ export function Search() {
             aria-activedescendant={visible && resultados.length ? `${uid}-op-${activo}` : undefined}
             autoComplete="off"
             spellCheck={false}
-            placeholder="Buscar agentes, grupos y conversaciones"
+            placeholder="Escribe / para buscar"
             value={q}
             onChange={(e) => {
               setQ(e.target.value);

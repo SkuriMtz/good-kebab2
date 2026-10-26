@@ -55,7 +55,7 @@ export function Topbar({ onMenu, onAvisos, avisosAbiertos, menuAbierto }: Props)
 
         <Search />
 
-        {t.demo && <span className="t-status ml-6 hidden shrink-0 xl:block">Datos de ejemplo</span>}
+        {t.demo && titulo === "Actividad" && <span className="t-status ml-6 hidden shrink-0 xl:block">Datos de ejemplo</span>}
 
         <div className="flex shrink-0 items-center gap-0.5 md:ml-auto">
           <IconLink href={hrefChat(t.rutas, { nueva: "1" })} label="Nueva conversación">

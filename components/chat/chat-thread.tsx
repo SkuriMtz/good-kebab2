@@ -17,7 +17,7 @@ import { ERROR_MESSAGES } from "@/lib/chat/errors";
 import { MAX_TEXT_CHARS, makeTitle, oneLine, uid, withAttachment } from "@/lib/chat/format";
 import type { ResultCard } from "@/lib/db/types";
 import type { ChatErrorCode, ChatMessage, ChatTarget, ConversationMeta, GroupSummary } from "@/lib/chat/types";
-import { DEMO_GUION_ID, DEMO_NOTICE, DEMO_SUGGESTIONS, planDemoReply } from "@/lib/demo/chat";
+import { DEMO_GUION_ID, DEMO_SUGGESTIONS, planDemoReply } from "@/lib/demo/chat";
 import { AgentStack } from "./agent-stack";
 import { AgentStatus, TypingIndicator } from "./agent-status";
 import { useChat } from "./chat-context";
@@ -490,7 +490,6 @@ export function ChatThread({ conversationId, conversation, initialMessages }: Pr
           <div className="flex w-full flex-1 flex-col items-center justify-center px-5 pb-6 text-center lg:flex-none lg:pb-12">
             <h1 className="t-title-lg">{nombre ? `Hola, ${nombre}` : "Hola"}</h1>
             <p className="t-lead mt-5 max-w-[34ch] text-balance">¿Qué quieres que haga tu equipo hoy?</p>
-            {demo && <p className="mt-4 max-w-[40ch] text-[0.9375rem] font-normal text-chat-fg-2">{DEMO_NOTICE}</p>}
             {quick.length > 0 && (
               <div className="mt-8 flex flex-wrap justify-center gap-x-1 gap-y-2" role="group" aria-label="Comandos para empezar">
                 {quick.map((c) => (
@@ -533,7 +532,6 @@ export function ChatThread({ conversationId, conversation, initialMessages }: Pr
               aria-busy={phase.kind === "respondiendo" || undefined}
               className="mx-auto flex w-full max-w-[760px] flex-col gap-8 px-5 pb-8 pt-4 sm:px-6"
             >
-              {demo && <p className="text-center text-[0.875rem] font-normal text-chat-fg-2">{DEMO_NOTICE}</p>}
               {messages.map((m, i) => (
                 <MessageView
                   key={m.id}

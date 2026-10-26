@@ -191,7 +191,7 @@ export function ConversationList({ onNavigate, compact = false }: { onNavigate?:
         )}
       </Section>
 
-      {demo && <p className="t-status mt-auto shrink-0 px-3 pt-10 light:text-chat-fg-2">Datos de ejemplo</p>}
+      {demo && <p className="t-status mt-auto shrink-0 px-3 pt-10 lg:hidden light:text-chat-fg-2">Datos de ejemplo</p>}
     </nav>
   );
 }
